@@ -1,40 +1,64 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import moment from 'moment';
 
-function Timer({
-  className
-}) {
+function Timer(_ref) {
+  var className = _ref.className;
   return React.createElement("div", {
     className: className
   }, "Example Component: ");
 }
-function StopWatch({
-  className,
-  style,
-  seperatorChar = ',',
-  showSeconds = 'always',
-  showMinutes = 'always',
-  showHours = 'always',
-  showDays = 'always',
-  daysText = 'Day',
-  hoursText = 'Hour',
-  minutesText = 'Minute',
-  secondsText = 'Second',
-  pluralSymbol = 's',
-  onEachSecond,
-  onFinish,
-  end
-}) {
-  const [second, setSecond] = useState(0);
-  const [minute, setMinute] = useState(0);
-  const [hour, setHour] = useState(0);
-  const [day, setDay] = useState(0);
-  const [finished, setFinished] = useState(false);
-  const holderRef = useRef(null);
-  const timeout = 1000;
-  useLayoutEffect(() => {
+function StopWatch(_ref2) {
+  var className = _ref2.className,
+      style = _ref2.style,
+      _ref2$seperatorChar = _ref2.seperatorChar,
+      seperatorChar = _ref2$seperatorChar === void 0 ? ',' : _ref2$seperatorChar,
+      _ref2$showSeconds = _ref2.showSeconds,
+      showSeconds = _ref2$showSeconds === void 0 ? 'always' : _ref2$showSeconds,
+      _ref2$showMinutes = _ref2.showMinutes,
+      showMinutes = _ref2$showMinutes === void 0 ? 'always' : _ref2$showMinutes,
+      _ref2$showHours = _ref2.showHours,
+      showHours = _ref2$showHours === void 0 ? 'always' : _ref2$showHours,
+      _ref2$showDays = _ref2.showDays,
+      showDays = _ref2$showDays === void 0 ? 'always' : _ref2$showDays,
+      _ref2$daysText = _ref2.daysText,
+      daysText = _ref2$daysText === void 0 ? 'Day' : _ref2$daysText,
+      _ref2$hoursText = _ref2.hoursText,
+      hoursText = _ref2$hoursText === void 0 ? 'Hour' : _ref2$hoursText,
+      _ref2$minutesText = _ref2.minutesText,
+      minutesText = _ref2$minutesText === void 0 ? 'Minute' : _ref2$minutesText,
+      _ref2$secondsText = _ref2.secondsText,
+      secondsText = _ref2$secondsText === void 0 ? 'Second' : _ref2$secondsText,
+      _ref2$pluralSymbol = _ref2.pluralSymbol,
+      pluralSymbol = _ref2$pluralSymbol === void 0 ? 's' : _ref2$pluralSymbol,
+      onEachSecond = _ref2.onEachSecond,
+      onFinish = _ref2.onFinish,
+      end = _ref2.end;
+
+  var _useState = useState(0),
+      second = _useState[0],
+      setSecond = _useState[1];
+
+  var _useState2 = useState(0),
+      minute = _useState2[0],
+      setMinute = _useState2[1];
+
+  var _useState3 = useState(0),
+      hour = _useState3[0],
+      setHour = _useState3[1];
+
+  var _useState4 = useState(0),
+      day = _useState4[0],
+      setDay = _useState4[1];
+
+  var _useState5 = useState(false),
+      finished = _useState5[0],
+      setFinished = _useState5[1];
+
+  var holderRef = useRef(null);
+  var timeout = 1000;
+  useLayoutEffect(function () {
     var endTime = moment(end);
-    var interval = setInterval(() => {
+    var interval = setInterval(function () {
       if (end) {
         var now = moment(new Date());
 
@@ -53,87 +77,97 @@ function StopWatch({
             setMinute(0);
 
             if (hour == 23) {
-              setDay(state => ++state);
+              setDay(function (state) {
+                return ++state;
+              });
               setHour(0);
-            } else setMinute(state => ++state);
-          } else setMinute(state => ++state);
-        } else setSecond(state => ++state);
+            } else setMinute(function (state) {
+              return ++state;
+            });
+          } else setMinute(function (state) {
+            return ++state;
+          });
+        } else setSecond(function (state) {
+          return ++state;
+        });
 
         if (onEachSecond) onEachSecond(second, minute, hour, day);
       }
     }, timeout);
-    return () => {
+    return function () {
       clearInterval(interval);
     };
   });
 
-  const isPlural = status => status >= 2 ? pluralSymbol : '';
+  var isPlural = function isPlural(status) {
+    return status >= 2 ? pluralSymbol : '';
+  };
 
-  const dayInfo = () => {
+  var dayInfo = function dayInfo() {
     switch (showDays) {
       case 'always':
-        return `${day} ${daysText}${isPlural(day)}`;
+        return day + " " + daysText + isPlural(day);
 
       case 'onlyIfIsNotZero':
-        return day ? `${day} ${daysText}${isPlural(day)}` : '';
+        return day ? day + " " + daysText + isPlural(day) : '';
 
       case 'ifOnStartisNotZero':
-        return `${day} ${daysText}${isPlural(day)}`;
+        return day + " " + daysText + isPlural(day);
 
       default:
         return '';
     }
   };
 
-  const hourInfo = () => {
+  var hourInfo = function hourInfo() {
     switch (showHours) {
       case 'always':
-        return `${hour} ${hoursText}${isPlural(hour)}`;
+        return hour + " " + hoursText + isPlural(hour);
 
       case 'onlyIfIsNotZero':
-        return day ? `${hour} ${hoursText}${isPlural(hour)}` : '';
+        return day ? hour + " " + hoursText + isPlural(hour) : '';
 
       case 'ifOnStartisNotZero':
-        return `${hour} ${hoursText}${isPlural(hour)}`;
+        return hour + " " + hoursText + isPlural(hour);
 
       default:
         return '';
     }
   };
 
-  const minuteInfo = () => {
+  var minuteInfo = function minuteInfo() {
     switch (showMinutes) {
       case 'always':
-        return `${minute} ${minutesText}${isPlural(minute)}`;
+        return minute + " " + minutesText + isPlural(minute);
 
       case 'onlyIfIsNotZero':
-        return day ? `${minute} ${minutesText}${isPlural(minute)}` : '';
+        return day ? minute + " " + minutesText + isPlural(minute) : '';
 
       case 'ifOnStartisNotZero':
-        return `${minute} ${minutesText}${isPlural(minute)}`;
+        return minute + " " + minutesText + isPlural(minute);
 
       default:
         return '';
     }
   };
 
-  const secondInfo = () => {
+  var secondInfo = function secondInfo() {
     switch (showSeconds) {
       case 'always':
-        return `${second} ${secondsText}${isPlural(second)}`;
+        return second + " " + secondsText + isPlural(second);
 
       case 'onlyIfIsNotZero':
-        return day ? `${second} ${secondsText}${isPlural(second)}` : '';
+        return day ? second + " " + secondsText + isPlural(second) : '';
 
       case 'ifOnStartisNotZero':
-        return `${second} ${secondsText}${isPlural(second)}`;
+        return second + " " + secondsText + isPlural(second);
 
       default:
         return '';
     }
   };
 
-  var text = `${dayInfo()}${seperatorChar} ${hourInfo()}${seperatorChar} ${minuteInfo()}${seperatorChar} ${secondInfo()}`;
+  var text = "" + dayInfo() + seperatorChar + " " + hourInfo() + seperatorChar + " " + minuteInfo() + seperatorChar + " " + secondInfo();
   return React.createElement("span", {
     ref: holderRef,
     className: className,

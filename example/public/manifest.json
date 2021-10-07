@@ -1,6 +1,6 @@
 {
-  "short_name": "react-timer",
-  "name": "react-timer",
+  "short_name": "timer-for-react",
+  "name": "timer-for-react",
   "icons": [
     {
       "src": "favicon.ico",

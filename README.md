@@ -7,21 +7,18 @@
 ## Install
 
 ```bash
-npm install --save react-timer
+npm install --save timer-for-react
 ```
 
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import React from 'react'
 
-import MyComponent from 'react-timer'
-import 'react-timer/dist/index.css'
+import { StopWatch } from 'timer-for-react'
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+const Example = () => {  
+    return <StopWatch />  
 }
 ```
 
