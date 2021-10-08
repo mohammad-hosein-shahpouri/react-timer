@@ -1,5 +1,5 @@
 import React, { CSSProperties, useLayoutEffect, useRef, useState } from 'react'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 
 interface IBaseProps {
   showSeconds?: 'never' | 'always' | 'onlyIfIsNotZero' | 'ifOnStartisNotZero'
@@ -12,16 +12,18 @@ interface IBaseProps {
   daysText?: string
   seperatorChar?: string
   pluralSymbol?: string
-  className?: string,
+  id?: string
+  className?: string
   style?: CSSProperties
-  onFinish?: () => void
+  onFinish?: (element: HTMLSpanElement) => void
 }
 
 export interface TimerProps extends IBaseProps {}
 
 export interface StopWatchProps extends IBaseProps {
-  end?: Date | string
+  end?: Date | string | Moment
   onEachSecond?: (
+    element: HTMLSpanElement,
     secondsPassed: number,
     minutesPassed: number,
     hoursPassed: number,
@@ -34,6 +36,7 @@ export function Timer({ className }: TimerProps) {
 }
 
 export function StopWatch({
+  id,
   className,
   style,
   seperatorChar = ',',
@@ -61,16 +64,8 @@ export function StopWatch({
   const timeout = 1000
   useLayoutEffect(() => {
     var endTime = moment(end)
-    var interval = setInterval(() => {
-      if (end) {
-        var now = moment(new Date())
-        if (now.isBefore(endTime)) {
-          clearInterval(interval)
-          setFinished(true)
-          if (onFinish) onFinish()
-        }
-      }
 
+    var interval = setInterval(() => {
       if (!finished) {
         if (second == 59) {
           setSecond(0)
@@ -83,8 +78,20 @@ export function StopWatch({
           } else setMinute((state) => ++state)
         } else setSecond((state) => ++state)
 
-        if (onEachSecond) onEachSecond(second, minute, hour, day)
+        if (onEachSecond)
+          onEachSecond(holderRef.current!, second, minute, hour, day)
+
+        if (end) {
+          var now = moment(new Date())
+
+          if (endTime.isBefore(now)) {
+            clearInterval(interval)
+            setFinished(true)
+            if (onFinish) onFinish(holderRef.current!)
+          }
+        }
       }
+      console.log('object')
     }, timeout)
 
     return () => {
@@ -149,7 +156,7 @@ export function StopWatch({
   var text = `${dayInfo()}${seperatorChar} ${hourInfo()}${seperatorChar} ${minuteInfo()}${seperatorChar} ${secondInfo()}`
 
   return (
-    <span ref={holderRef} className={className } style={style}>
+    <span ref={holderRef} className={className} style={style} id={id}>
       {text}
     </span>
   )

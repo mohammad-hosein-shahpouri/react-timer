@@ -30,6 +30,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Visual Studio 2015 cache/options directory
-/.vs/
+/.vs
 
 /src/.eslintrc

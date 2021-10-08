@@ -24,4 +24,4 @@ const Example = () => {
 
 ## License
 
-MIT © [Mohammad Hosein Shahpouri](https://github.com/Mohammad Hosein Shahpouri)
+MIT © [Mohammad Hosein Shahpouri](https://github.com/Mohammad-Hosein-Shahpouri)
