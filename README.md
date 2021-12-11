@@ -1,8 +1,10 @@
-# react-timer
+# timer-for-react
 
-> Made with create-react-library
+<!-- >> Made with create-react-library -->
 
-[![NPM](https://img.shields.io/npm/v/react-timer.svg)](https://www.npmjs.com/package/react-timer) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/timer-for-react.svg)](https://www.npmjs.com/package/timer-for-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+A Timer and a Stopwatch made with React for React, with full support of Typescript.
 
 ## Install
 
