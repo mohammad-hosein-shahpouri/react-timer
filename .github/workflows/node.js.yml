@@ -32,4 +32,9 @@ jobs:
       uses: JS-DevTools/npm-publish@v1
       with:
           token: ${{secrets.NPM_TOKEN}}
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.7
+      with:
+          branch: gh-pages
+          folder: build
           
